@@ -13,7 +13,7 @@ module.exports = {
 
   plugins: [
     new MiniCssExtractPlugin({
-      filename: "[name].css",
+      filename: '[name].css',
     }),
     new CleanWebpackPlugin(['docs']),
     new HtmlWebpackPlugin({
@@ -27,34 +27,31 @@ module.exports = {
   },
 
   module: {
-    rules: [{
-      test: /\.html$/,
-      use: [
-        'html-loader'
-      ]
-    }, {
-      test: /\.css$/,
-      use : [
-        devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
-        { loader: 'css-loader'},
-        {loader: 'postcss-loader'}
-      ]
-    }, {
-      test: /\.scss$/,
-      use : [
-        devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
-        'css-loader',
-        {
-          loader: 'postcss-loader'
-        },
-        'sass-loader'
-      ]
-    }, {
-      test: /\.(ttf|svg|png|jpg)$/,
-      use: [
-        {
-          loader: 'file-loader', options: {
-            name: '[name].[ext]',
+    rules: [
+      {
+        test: /\.html$/,
+        use : ['html-loader']
+      }, {
+        test: /\.css$/,
+        use : [
+          devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
+          'css-loader',
+          'postcss-loader'
+        ]
+      }, {
+        test: /\.scss$/,
+        use : [
+          devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
+          'css-loader',
+          'postcss-loader',
+          'sass-loader'
+        ]
+      }, {
+        test: /\.(ttf|svg|png|jpg)$/,
+        use : [{
+          loader : 'file-loader',
+          options: {
+            name      : '[name].[ext]',
             outputPath: function (file) {
               if (/\.ttf$/.test(file)) {
                 return 'resources/fonts/' + file;
@@ -67,10 +64,9 @@ module.exports = {
               return 'resources/' + file;
             }
           }
-        }
-      ]
-    }],
-
+        }]
+      }
+    ]
   }
 };
 
