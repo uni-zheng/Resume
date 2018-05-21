@@ -50,9 +50,27 @@ module.exports = {
         'sass-loader'
       ]
     }, {
-      test: /\.(ttf|svg|png|jpg|cur)$/,
-      use: ['file-loader']
+      test: /\.(ttf|svg|png|jpg)$/,
+      use: [
+        {
+          loader: 'file-loader', options: {
+            name: '[name].[ext]',
+            outputPath: function (file) {
+              if (/\.ttf$/.test(file)) {
+                return 'resources/fonts/' + file;
+              }
+
+              if (/\.(svg|png|jpg)$/.test(file)) {
+                return 'resources/images/' + file;
+              }
+
+              return 'resources/' + file;
+            }
+          }
+        }
+      ]
     }],
 
   }
 };
+
