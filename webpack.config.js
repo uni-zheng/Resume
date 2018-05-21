@@ -1,8 +1,10 @@
-const devMode = process.env.NODE_ENV === 'production';
+const devMode = process.env.NODE_ENV !== 'production';
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = {
   mode: 'development',
@@ -18,7 +20,16 @@ module.exports = {
     new CleanWebpackPlugin(['docs']),
     new HtmlWebpackPlugin({
       template: './src/index.html'
-    })
+    }),
+    new UglifyJsPlugin({
+      sourceMap: true,
+      uglifyOptions: {
+        compress: {
+          drop_console: true
+        }
+      }
+    }),
+    new OptimizeCssAssetsPlugin({})
   ],
 
   output: {
@@ -34,14 +45,14 @@ module.exports = {
       }, {
         test: /\.css$/,
         use : [
-          devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
+          MiniCssExtractPlugin.loader,
           'css-loader',
           'postcss-loader'
         ]
       }, {
         test: /\.scss$/,
         use : [
-          devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
+          MiniCssExtractPlugin.loader,
           'css-loader',
           'postcss-loader',
           'sass-loader'
