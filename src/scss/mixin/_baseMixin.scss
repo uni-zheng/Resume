@@ -1,0 +1,174 @@
+@charset "UTF-8";
+
+@mixin reset-p {
+  margin: 0;
+}
+
+@mixin cf {
+  &::after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+
+@mixin hyperlink () {
+  .emphasis {
+    color: #008ED6;
+  }
+
+  .hyperlink {
+    color: #008ED6;
+    cursor: pointer;
+  }
+
+  .underline {
+    text-decoration: underline;
+  }
+}
+
+@mixin trim-text-block($line-count){
+
+  @if $line-count == 0 {
+    white-space: normal;
+    -webkit-line-clamp: inherit;
+  } @else if $line-count == 1 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  } @else if $line-count != 1 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: $line-count;
+    /* autoprefixer: off */
+    // 关闭的原因是编译会丢失 -webkit-box-orient
+    -webkit-box-orient: vertical;
+    /* autoprefixer: on */
+    white-space: normal;
+  }
+}
+
+@mixin letter-spacing-reset {
+  & {
+    letter-spacing: -0.25em;
+
+    span,
+    em,
+    i,
+    strong {
+      letter-spacing: normal;
+    }
+  }
+}
+
+@mixin margin-class ($size: 1, $max: 100) {
+  @for $i from 0 through $max {
+    .m-#{$i * $size} {
+      margin: 1px * $i * $size !important;
+    }
+    .p-#{$i * $size} {
+      padding: 1px * $i * $size !important;
+    }
+
+
+    .mv-#{$i * $size} {
+      margin-top: 1px * $i * $size !important;
+      margin-bottom: 1px * $i * $size !important;
+    }
+    .mh-#{$i * $size} {
+      margin-left: 1px * $i * $size !important;
+      margin-right: 1px * $i * $size !important;
+    }
+    .pv-#{$i * $size} {
+      padding-top: 1px * $i * $size !important;
+      padding-bottom: 1px * $i * $size !important;
+    }
+    .ph-#{$i * $size} {
+      padding-left: 1px * $i * $size !important;
+      padding-right: 1px * $i * $size !important;
+    }
+
+
+
+    .ml-#{$i * $size} {
+      margin-left: 1px * $i * $size !important;
+    }
+
+    .mr-#{$i * $size} {
+      margin-right: 1px * $i * $size !important;
+    }
+
+    .mt-#{$i * $size} {
+      margin-top: 1px * $i * $size !important;
+    }
+
+    .mb-#{$i * $size} {
+      margin-bottom: 1px * $i * $size !important;
+    }
+
+    .pl-#{$i * $size} {
+      padding-left: 1px * $i * $size !important;
+    }
+
+    .pr-#{$i * $size} {
+      padding-right: 1px * $i * $size !important;
+    }
+
+    .pt-#{$i * $size} {
+      padding-top: 1px * $i * $size !important;
+    }
+
+    .pb-#{$i * $size} {
+      padding-bottom: 1px * $i * $size !important;
+    }
+  }
+
+}
+
+@mixin width-attr () {
+  @for $i from 1 through 1000 {
+    &[data-width="#{$i * 1}"] {
+      flex-basis: $i * 1px !important;
+      width: $i * 1px !important;
+    }
+  }
+}
+
+@mixin pseudo-border ($dir: top, $color: #999) {
+  & {
+    position: relative;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    box-sizing: border-box;
+    pointer-events: none;
+
+    @if $dir == top {
+      border-top: solid 1px $color;
+    }
+
+    @if $dir == bottom {
+      border-bottom: solid 1px $color;
+    }
+
+    @if $dir == left {
+      border-left: solid 1px $color;
+    }
+
+    @if $dir == right {
+      border-right: solid 1px $color;
+    }
+
+    @if $dir == all {
+      border: solid 1px $color;
+    }
+  }
+}
