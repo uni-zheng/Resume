@@ -8,7 +8,8 @@
   },
   "scripts": {
     "build": "webpack",
-    "watch": "webpack --watch"
+    "watch": "webpack --watch",
+    "spider": "font-spider --no-backup ./docs/*.html"
   },
   "repository": {
     "type": "git",
