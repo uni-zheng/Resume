@@ -1,4 +1,3 @@
-const devMode = process.env.NODE_ENV !== 'production';
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
@@ -6,78 +5,92 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
-module.exports = {
-  mode: 'development',
+module.exports = (env, argv) => {
+  let prodMode = argv.mode === 'production';
 
-  entry: './src/index.js',
+  return {
+    mode: prodMode ? argv.mode : 'development',
 
-  devtool: 'inline-source-map',
+    entry: {
+      index: './src/index.js',
+      font: './src/font.js'
+    },
 
-  plugins: [
-    new MiniCssExtractPlugin({
-      filename: '[name].css',
-    }),
-    new CleanWebpackPlugin(['docs']),
-    new HtmlWebpackPlugin({
-      template: './src/index.html'
-    }),
-    new UglifyJsPlugin({
-      sourceMap: true,
-      uglifyOptions: {
-        compress: {
-          drop_console: true
-        }
-      }
-    }),
-    new OptimizeCssAssetsPlugin({})
-  ],
+    devtool: prodMode ? 'source-map' : 'inline-source-map',
 
-  output: {
-    filename: 'bundle.js',
-    path    : path.resolve(__dirname, 'docs')
-  },
+    plugins: (() => {
+      let devPlugins = [
+        new CleanWebpackPlugin(['docs']),
+        new HtmlWebpackPlugin({
+          template: './src/index.html'
+        }),
+        new MiniCssExtractPlugin({
+          filename: '[name].css',
+        }),
+      ];
 
-  module: {
-    rules: [
-      {
-        test: /\.html$/,
-        use : ['html-loader']
-      }, {
-        test: /\.css$/,
-        use : [
-          MiniCssExtractPlugin.loader,
-          'css-loader',
-          'postcss-loader'
-        ]
-      }, {
-        test: /\.scss$/,
-        use : [
-          MiniCssExtractPlugin.loader,
-          'css-loader',
-          'postcss-loader',
-          'sass-loader'
-        ]
-      }, {
-        test: /\.(ttf|svg|png|jpg)$/,
-        use : [{
-          loader : 'file-loader',
-          options: {
-            name      : '[name].[ext]',
-            outputPath: function (file) {
-              if (/\.ttf$/.test(file)) {
-                return 'resources/fonts/' + file;
-              }
-
-              if (/\.(svg|png|jpg)$/.test(file)) {
-                return 'resources/images/' + file;
-              }
-
-              return 'resources/' + file;
+      let prodPlugins = [
+        new UglifyJsPlugin({
+          sourceMap: true,
+          uglifyOptions: {
+            compress: {
+              drop_console: true
             }
           }
-        }]
-      }
-    ]
+        }),
+        new OptimizeCssAssetsPlugin({}),
+      ];
+
+      return prodMode ? devPlugins.concat(prodPlugins) : devPlugins;
+    })(),
+
+    output: {
+      filename: '[name].bundle.js',
+      path    : path.resolve(__dirname, 'docs')
+    },
+
+    module: {
+      rules: [
+        {
+          test: /\.html$/,
+          use : ['html-loader']
+        }, {
+          test: /\.css$/,
+          use : [
+            MiniCssExtractPlugin.loader,
+            'css-loader',
+            'postcss-loader'
+          ]
+        }, {
+          test: /\.scss$/,
+          use : [
+            MiniCssExtractPlugin.loader,
+            'css-loader',
+            'postcss-loader',
+            'sass-loader'
+          ]
+        }, {
+          test: /\.(ttf|eot|woff|svg|png|jpg)$/,
+          use : [{
+            loader : 'file-loader',
+            options: {
+              name      : '[name].[ext]',
+              outputPath: function (file) {
+                if (/\.(ttf|eot|woff)$/.test(file)) {
+                  return 'resources/fonts/' + file;
+                }
+
+                if (/\.(svg|png|jpg)$/.test(file)) {
+                  return 'resources/images/' + file;
+                }
+
+                return 'resources/' + file;
+              }
+            }
+          }]
+        }
+      ]
+    }
   }
 };
 

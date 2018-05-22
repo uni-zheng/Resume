@@ -7,9 +7,9 @@
     "doc": "docs"
   },
   "scripts": {
-    "build": "webpack",
+    "build": "webpack --mode=production",
     "watch": "webpack --watch",
-    "spider": "font-spider --no-backup ./docs/*.html"
+    "spider": "font-spider --no-backup --ignore 'font\\.css$' ./docs/*.html"
   },
   "repository": {
     "type": "git",

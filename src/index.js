@@ -1,9 +1,11 @@
-import './font/HanyiSentyJournal.ttf';
-import './font/SentyDiary.ttf';
 import 'normalize.css/normalize.css';
 import './scss/index.scss';
 
 import Postit from './component/postit';
+
+if (process.env.NODE_ENV === 'production') {
+  console.log(123);
+}
 
 let UUID = 1;
 

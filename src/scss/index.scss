@@ -70,8 +70,14 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 a {
+  display: inline-block;
+  padding: 0 8px;
   color: $rsg-blue;
   text-decoration: none;
+}
+
+.iconfont {
+  font-size: inherit;
 }
 
 @mixin font-journal($import: false) {
@@ -260,6 +266,19 @@ a {
       top: 5px;
       line-height: $rsg-line-height;
       color: #444;
+    }
+
+    a {
+      line-height: $rsg-line-height;
+      cursor: pointer;
+
+      .iconfont {
+        position: relative;
+        top: 2px;
+        display: inline-block;
+        transform: scale(1.4);
+        color: #aaa;
+      }
     }
   }
 }
@@ -474,6 +493,14 @@ post {
 .badge-box {
   position: relative;
   margin-top: -80px;
+
+  .title {
+    position: absolute;
+    right: 0;
+    top: 240px;
+    transform: rotate(-20deg);
+    color: $rsg-green;
+  }
 }
 
 .badge-item {
