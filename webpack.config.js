@@ -22,7 +22,8 @@ module.exports = (env, argv) => {
       let devPlugins = [
         new CleanWebpackPlugin(['docs']),
         new HtmlWebpackPlugin({
-          template: './src/index.html'
+          template: './src/index.html',
+          favicon: './src/image/favicon.ico'
         }),
         new MiniCssExtractPlugin({
           filename: '[name].css',
@@ -61,6 +62,14 @@ module.exports = (env, argv) => {
             'css-loader',
             'postcss-loader'
           ]
+        }, {
+          test: /\.js$/,
+          use: [{
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-env']
+            }
+          }]
         }, {
           test: /\.scss$/,
           use : [

@@ -3,13 +3,20 @@ import './scss/index.scss';
 
 import Postit from './component/postit';
 
-if (process.env.NODE_ENV === 'production') {
-  console.log(123);
-}
-
 let UUID = 1;
 
-console.log(Postit);
+(() => {
+  let headerDateEle = document.body.querySelector('#header-date');
+
+  let today = new Date();
+
+  headerDateEle.innerText = `${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()} ${transWeekName(today.getDay())}`;
+
+  function transWeekName (week) {
+    let weekNames = ['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日']
+    return  weekNames[week];
+  }
+})();
 
 let p1 = new Postit('#post-1', {
   rotate: 5,
