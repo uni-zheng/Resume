@@ -1,5 +1,7 @@
 @charset "UTF-8";
 
+@import "print";
+
 @font-face {
   font-family: 'journal';
   src: url('../font/HanyiSentyJournal.ttf') format('truetype');
@@ -74,6 +76,50 @@ a {
   padding: 0 8px;
   color: $rsg-blue;
   text-decoration: none;
+}
+
+ul {
+  $decoration-size: 7px;
+  padding-left: 20px;
+
+  li {
+    position: relative;
+    list-style: none;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: ($rsg-line-height - $decoration-size) / 2;
+      left: - (12px + 20px + $decoration-size) / 2;
+      width: $decoration-size;
+      height: $decoration-size;
+      background: #ffa423 url("../image/bg-2.png");
+      border-radius: 50%;
+    }
+
+    @for $i from 1 through 8 {
+      &:nth-child(8n + #{$i}) {
+        &::before {
+          background-position: getRandom(0, 100, 0) * 1px getRandom(0, 100, 0) * 1px;
+          border-top-left-radius: getRandom(35, 50, 0) * 1%;
+          border-top-right-radius: getRandom(35, 50, 0) * 1%;
+          border-bottom-left-radius: getRandom(35, 50, 0) * 1%;
+          border-bottom-right-radius: getRandom(35, 50, 0) * 1%;
+          transform: skew(getRandom(-10, 10) * 1deg, getRandom(-10, 10) * 1deg);
+        }
+      }
+    }
+  }
+
+  &.crossing {
+    padding-left: 0;
+
+    li {
+      &::before {
+        left: -34px;
+      }
+    }
+  }
 }
 
 .iconfont {
@@ -181,12 +227,12 @@ a {
   height: 32px;
 }
 
-
 @for $i from 1 through 100 {
   [data-used-line="#{$i}"] {
     height: $i * $rsg-line-height;
   }
 }
+
 .paper-box {
   $left-guideline: $rsg-aside-width;
   $line-height: $rsg-line-height;
@@ -261,7 +307,7 @@ a {
     }
 
     p:not(.isolate),
-    li:not(.isolate){
+    li:not(.isolate) {
       position: relative;
       top: 5px;
       line-height: $rsg-line-height;
@@ -387,6 +433,7 @@ post {
 .post-2-ct {
   height: $rsg-line-height * 12;
 }
+
 #post-2 {
   float: right;
   transform-origin: 100% 100%;
@@ -475,7 +522,7 @@ post {
   @each $name, $color in (blue, rgba($rsg-blue, 0.8)),
           (red, rgba($rsg-red, 0.8)),
           (yellow, rgba(#ffdc30, 0.8)),
-          (orange, rgba(#ff9b1b, 0.8)){
+          (orange, rgba(#ff9b1b, 0.8)) {
     &.theme-#{$name} {
       @include pen-underline($color);
 
@@ -488,8 +535,6 @@ post {
   }
 }
 
-
-
 .badge-box {
   position: relative;
   margin-top: -80px;
@@ -497,7 +542,7 @@ post {
   .title {
     position: absolute;
     right: 0;
-    top: 240px;
+    top: 300px;
     transform: rotate(-20deg);
     color: $rsg-green;
   }

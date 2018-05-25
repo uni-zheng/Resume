@@ -37,8 +37,8 @@ let p4 = new Postit('#post-4', {
 let badgeBoxEle = document.body.querySelector('.badge-box');
 
 badgeBoxEle.querySelectorAll('.badge-item').forEach(function (itemEle) {
-  itemEle.style.top = `${getRandom(0, 200)}px`;
-  itemEle.style.left = `${getRandom(0, 250)}px`;
+  itemEle.style.top = `${getRandom(0, 240)}px`;
+  itemEle.style.left = `${getRandom(0, 300)}px`;
   itemEle.style.transform = `rotate(${getRandom(-30, 30)}deg)`;
 
   InitBadgeItemDragable(itemEle, badgeBoxEle);
