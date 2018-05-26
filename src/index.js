@@ -10,33 +10,33 @@ let UUID = 1;
 
   let today = new Date();
 
-  headerDateEle.innerText = `${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()} ${transWeekName(today.getDay())}`;
+  headerDateEle.innerText = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()} ${transWeekName(today.getDay())}`;
 
   function transWeekName (week) {
-    let weekNames = ['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日']
-    return  weekNames[week];
+    let weekNames = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+    return weekNames[week];
   }
 })();
 
 let p1 = new Postit('#post-1', {
   rotate: 5,
-  width: 220,
+  width : 220,
   height: 220
 });
 
 let p2 = new Postit('#post-2', {
-  type: 'photo',
+  type  : 'photo',
   rotate: -3
 });
 
 let p3 = new Postit('#post-3', {
-  type: 'photo',
+  type  : 'photo',
   rotate: 3
 });
 
 let p4 = new Postit('#post-4', {
-  type: 'photo',
-  width: 400,
+  type  : 'photo',
+  width : 400,
   extend: 20,
   rotate: 3
 });
@@ -107,7 +107,7 @@ function InitBadgeItemDragable (ele, container) {
 
       document.onmousemove = null;
       document.onmouseup = null;
-    }
+    };
   });
 }
 
