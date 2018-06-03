@@ -27,7 +27,7 @@
 }
 
 // 荧光笔
-@mixin nite-writer-pen($base-color: $rsg-blue) {
+@mixin nite-writer-pen($base-color: #8FE7FF) {
   position: relative;
   display: inline-block;
 

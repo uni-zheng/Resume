@@ -37,13 +37,21 @@
   font-style: normal;
 }
 
+:root {
+  --rsg-artical-gutter-line-color: rgba(71, 199, 255, 0.35);
+  //--rsg-blue: #188fff;
+  //--rsg-red: #ff3a35;
+  //--rsg-green: #00a746;
+}
+
 $rsg-line-height: 28px;
 $rsg-aside-width: 240px;
 $rsg-artical-box-width: 960px;
 
-$rsg-blue: #188fff;
-$rsg-red: #ff3a35;
-$rsg-green: #00a746;
+$rsg-blue: #47c7ff;
+$rsg-red: #ff5151;
+$rsg-green: #5ce851;
+$rsg-orange: #ffa423;
 
 @import "mixin/mixin";
 
@@ -52,7 +60,10 @@ $rsg-green: #00a746;
 
 @include width-attr;
 
-@each $name, $color in (blue, $rsg-blue), (red, $rsg-red), (green, $rsg-green) {
+@each $name, $color in (blue, $rsg-blue),
+        (red, $rsg-red),
+        (green, $rsg-green)
+        (orange, $rsg-orange) {
   .color-#{$name} {
     color: $color;
   }
@@ -95,7 +106,7 @@ ul {
       left: - (12px + 20px + $decoration-size) / 2;
       width: $decoration-size;
       height: $decoration-size;
-      background: #ffa423 url("../image/bg-2.png");
+      background: $rsg-orange url("../image/bg-2.png");
       border-radius: 50%;
     }
 
@@ -232,6 +243,10 @@ ul {
   line-height: 32px;
   color: #999;
   font-size: 20px;
+
+  #header-date {
+    text-align: right;
+  }
 }
 
 @for $i from 1 through 100 {
@@ -253,14 +268,14 @@ ul {
 
   .art-box {
     margin: 0 auto;
-    padding-bottom: $rsg-line-height * 4;
+    padding-bottom: $rsg-line-height * 2;
     min-height: 100vh;
     width: $rsg-artical-box-width;
 
     background-image: linear-gradient(90deg,
             transparent $left-guideline,
-            #abced4 $left-guideline,
-            #abced4 $left-guideline + 2px,
+            var(--rsg-artical-gutter-line-color) $left-guideline,
+            var(--rsg-artical-gutter-line-color) $left-guideline + 2px,
             transparent $left-guideline + 2px);
     background-size: $rsg-aside-width + 2px $rsg-line-height;
     background-repeat: repeat-y;
@@ -338,6 +353,11 @@ ul {
 
 .emphasis {
   font-weight: bolder;
+}
+
+.text-mirroring {
+  display: inline-block;
+  transform: scaleX(-1);
 }
 
 post {
