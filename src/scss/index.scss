@@ -222,7 +222,11 @@ ul {
 }
 
 .font-candy {
-  @include font-tiaotiao(true);
+  @include font-candy(true);
+  position: relative;
+  top: 2px;
+  font-size: 24px;
+  line-height: $rsg-line-height;
 }
 
 .font-m3x6 {
@@ -367,8 +371,6 @@ post {
 
   .post-container {
     position: relative;
-    min-width: 100px;
-    min-height: 100px;
     text-align: left;
   }
 
@@ -510,6 +512,12 @@ post {
   }
 }
 
+#post-5 {
+  .post-container {
+    padding: 4px;
+  }
+}
+
 .brush-style {
   //background-color: #008ED6;
   //background-image: radial-gradient(ellipse at center center, rgba(white, 0.07) 50%, transparent 50%),
@@ -571,13 +579,17 @@ post {
     right: 0;
     top: 300px;
     transform: rotate(-20deg);
-    color: $rsg-green;
+    color: $rsg-orange;
   }
 }
 
 .badge-item {
   position: absolute;
   cursor: pointer;
+
+  &.transition {
+    transition: transform 0.1s ease-out;
+  }
 
   img {
     filter: drop-shadow(0 1px 2px rgba(200, 200, 200, 0.8));

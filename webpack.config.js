@@ -79,7 +79,7 @@ module.exports = (env, argv) => {
             'sass-loader'
           ]
         }, {
-          test: /\.(ttf|eot|woff|svg|png|jpg)$/,
+          test: /\.(ttf|eot|woff|svg|png|jpg|gif)$/,
           use : [{
             loader : 'file-loader',
             options: {
@@ -89,7 +89,7 @@ module.exports = (env, argv) => {
                   return 'resources/fonts/' + file;
                 }
 
-                if (/\.(svg|png|jpg)$/.test(file)) {
+                if (/\.(svg|png|jpg|gif)$/.test(file)) {
                   return 'resources/images/' + file;
                 }
 

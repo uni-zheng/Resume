@@ -36,9 +36,16 @@ let p3 = new Postit('#post-3', {
 
 let p4 = new Postit('#post-4', {
   type  : 'photo',
-  width : 400,
+  width : 460,
   extend: 20,
   rotate: 3
+});
+
+let p5 = new Postit('#post-5', {
+  type  : 'photo',
+  width : 50,
+  extend: 20,
+  rotate: 30
 });
 
 let badgeBoxEle = document.body.querySelector('.badge-box');
@@ -48,12 +55,18 @@ badgeBoxEle.querySelectorAll('.badge-item').forEach(function (itemEle) {
   itemEle.style.left = `${getRandom(0, 300)}px`;
   itemEle.style.transform = `rotate(${getRandom(-30, 30)}deg)`;
 
+  setTimeout(() => {
+    itemEle.classList.add('transition');
+  });
+
   InitBadgeItemDragable(itemEle, badgeBoxEle);
 });
 
 function InitBadgeItemDragable (ele, container) {
   ele.addEventListener('mousedown', function (ev) {
     let oevent = ev || event;
+
+    oevent.preventDefault();
 
     console.warn('⬇ oevent');
     console.log(oevent);
@@ -62,6 +75,7 @@ function InitBadgeItemDragable (ele, container) {
     let distanceY = oevent.clientY - ele.offsetTop;
 
     ele.style.zIndex = UUID++;
+    ele.style.transform += ' scale(1.1)';
 
     document.onmousemove = function (ev) {
       let oevent = ev || event;
@@ -73,6 +87,7 @@ function InitBadgeItemDragable (ele, container) {
 
     document.onmouseup = function (ev) {
       ev = ev || window.event;
+      ele.style.transform = ele.style.transform.replace(/\sscale(.*)/, '');
 
       // let top = ev.clientY - distanceY;
       // let left = ev.clientX - distanceX;
